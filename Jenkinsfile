@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Cloning our Git') { 
             steps { 
-                git 'https://github.com/KoppulaRajender/spring-petclinic' 
+                git branch: 'main', url: 'https://github.com/KoppulaRajender/spring-petclinic' 
             }
         }
         stage('Package Docker Image'){
