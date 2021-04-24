@@ -6,35 +6,16 @@ pipeline {
         dockerImage = ''
     }
     stages {
-        stage('Checkout Project'){
-            steps {
-                script {
-                    checkout(
-                        [
-                            $class: 'GitSCM', 
-                            branches: 
-                            [
-                                [name: "${params.BRANCH}"]
-                            ], 
-                            doGenerateSubmoduleConfigurations: false, 
-                            extensions: [], 
-                            submoduleCfg: [], 
-                            userRemoteConfigs: 
-                            [
-                                [
-                                    credentialsId: 'gitpass', 
-                                    url: "https://github.com/KoppulaRajender/spring-petclinic.git"
-                                ]
-                            ]
-                        ]
-                    )
-                }
+        stage('Cloning our Git') { 
+            steps { 
+                git 'https://github.com/KoppulaRajender/spring-petclinic' 
             }
         }
         stage('Package Docker Image'){
             steps {
                 script {
                     sh script: "cd spring-petclinic"
+                    sh script: "git checkout main"
                     sh script: "./mvnw package"
                 }
             }
