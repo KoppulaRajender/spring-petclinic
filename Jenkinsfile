@@ -5,26 +5,7 @@ pipeline {
         registryCredential = 'dockerhub_id' 
         dockerImage = ''
     }
-    options {
-        ansiColor('xterm')
-        timestamps()
-        skipDefaultCheckout()
-        skipStagesAfterUnstable()
-        buildDiscarder(logRotator(numToKeepStr: '14', daysToKeepStr: '14'))
-    }
-    parameters {
-        string(name: 'BRANCH', defaultValue: 'master', description: 'Choose branch name')
-    }
     stages {
-        stage('Ensure clean workspace'){
-            steps {
-                script {
-                    getBuildUser()
-                    currentBuild.displayName = "#${currentBuild.number} | ${env.BUILD_USER} | ${params.BRANCH}" 
-                    deleteDir()
-                }
-            }
-        }
         stage('Checkout Project'){
             steps {
                 script {
