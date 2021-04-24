@@ -14,8 +14,6 @@ pipeline {
         stage('Package Docker Image'){
             steps {
                 script {
-                    sh script: "cd spring-petclinic"
-                    sh script: "git checkout main"
                     sh script: "./mvnw package"
                 }
             }
